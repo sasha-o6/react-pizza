@@ -1,0 +1,36 @@
+.search {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 12px 40px;
+  width: 300px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.searchWrap {
+  position: relative;
+}
+.searchIcon {
+  width: 20px;
+  height: unset;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  margin: auto;
+}
+.searchClose {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 15px;
+  margin: 0;
+  width: 20px;
+  height: unset;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.6s;
+}
+.searchCloseShow {
+  opacity: 1;
+  pointer-events: all;
+}

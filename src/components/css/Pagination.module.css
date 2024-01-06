@@ -1,0 +1,15 @@
+.paginationWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  margin-top: 50px;
+}
+
+.pagButton {
+  border-radius: 100%;
+  border: 1px solid black;
+  width: 20px;
+  height: 20px;
+}
