@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 // import { useSelector, useDispatch } from "react-redux"
-// import { setCurentSelected } from "../redux/slices/filterSlice"
+// import { setcurrentSelected } from "../redux/slices/filterSlice"
 
 export const sortList = [
     { name: "популярности (DESC)", sortProperty: "rating", order: 'desc' },
@@ -11,7 +11,7 @@ export const sortList = [
     { name: "алфавиту (ASC)", sortProperty: "title", order: 'asc' }
 ]
 
-export default function Sort({ curentSelected, onClicktSelected }) {
+export default function Sort({ currentSelected, onClicktSelected }) {
     // const dispatch = useDispatch();
     // const sort = useSelector(state => state.filter.sort)
     const [isSortOpen, setIsSortOpen] = useState(false);
@@ -50,7 +50,7 @@ export default function Sort({ curentSelected, onClicktSelected }) {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setIsSortOpen(!isSortOpen)}>{curentSelected.name}</span>
+                <span onClick={() => setIsSortOpen(!isSortOpen)}>{currentSelected.name}</span>
             </div>
 
             {
@@ -61,7 +61,7 @@ export default function Sort({ curentSelected, onClicktSelected }) {
                                 <li
                                     key={i}
                                     onClick={() => onClickSelect(obj)}
-                                    className={curentSelected.name === obj.name ? 'active' : ''}>
+                                    className={currentSelected.name === obj.name ? 'active' : ''}>
                                     {obj.name}
                                 </li>
                             ))}

@@ -22,7 +22,7 @@ const filterSlice = createSlice({
         setCurrentPage: (state, action) => {
             state.currentPage = action.payload
         },
-        setCurentSelected: (state, action) => {
+        setcurrentSelected: (state, action) => {
             state.sort = action.payload
         },
         setFilters: (state, action) => {
@@ -33,6 +33,6 @@ const filterSlice = createSlice({
     }
 });
 
-export const { setSearchValue, setCategoryID, setCurrentPage, setCurentSelected, setFilters } = filterSlice.actions
+export const { setSearchValue, setCategoryID, setCurrentPage, setcurrentSelected, setFilters } = filterSlice.actions
 
 export default filterSlice.reducer

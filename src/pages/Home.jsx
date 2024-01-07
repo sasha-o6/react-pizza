@@ -3,7 +3,7 @@ import qs from "qs"
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategoryID, setCurrentPage, setCurentSelected, setFilters } from '../redux/slices/filterSlice';
+import { setCategoryID, setCurrentPage, setcurrentSelected, setFilters } from '../redux/slices/filterSlice';
 import { setItems, fetchPizzas } from '../redux/slices/pizzasSlice';
 
 import Categories from '../components/Categories';
@@ -16,31 +16,47 @@ import { SearchContext } from "../App"
 export default function Home(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch()
-  const { searchValue, categoryID, currentPage, sort: curentSelected } = useSelector(state => state.filter)
+  const { searchValue, categoryID, currentPage, sort: currentSelected } = useSelector(state => state.filter)
   const { items, status } = useSelector(state => state.pizzas)
 
-  const onClickCategory = (id) => dispatch(setCategoryID(id))
-  const onClicktSelected = (obj) => dispatch(setCurentSelected(obj))
-  const onClicktPage = (int) => dispatch(setCurrentPage(int))
+  const onClickCategory = (id) => dispatch(setCategoryID(id));
+  const onClicktSelected = (obj) => dispatch(setcurrentSelected(obj));
+  const onClicktPage = (int) => dispatch(setCurrentPage(int));
 
   // const [items, setItems] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const { searchValue } = useContext(SearchContext);
 
-  const isFirstLoad = useRef(true)
+  const isFirstLoad = useRef(true);
 
   const fetchRequest = async () => {
     // setIsLoading(false)
-    const fetchHref = new URL('https://6555464d63cafc694fe79d8e.mockapi.io/items');
+    // const fetchHref = new URL('https://6555464d63cafc694fe79d8e.mockapi.io/items');
 
-    fetchHref.searchParams.append('search', searchValue + "");
-    fetchHref.searchParams.append('limit', 4);
-    fetchHref.searchParams.append('page', currentPage)
-    if (categoryID > 0) fetchHref.searchParams.append('category', categoryID)
-    fetchHref.searchParams.append('sortBy', curentSelected.sortProperty);
-    fetchHref.searchParams.append('order', curentSelected.order);
+    // fetchHref.searchParams.append('search', searchValue + "");
+    // fetchHref.searchParams.append('limit', 4);
+    // fetchHref.searchParams.append('page', currentPage)
+    // if (categoryID > 0) fetchHref.searchParams.append('category', categoryID)
+    // fetchHref.searchParams.append('sortBy', currentSelected.sortProperty);
+    // fetchHref.searchParams.append('order', currentSelected.order);
 
-    dispatch(fetchPizzas(fetchHref))
+    // dispatch(fetchPizzas(fetchHref))
+
+
+
+    const fetchParams = {};
+
+    fetchParams.search = searchValue + "";
+    fetchParams.limit = 4;
+    fetchParams.page = currentPage;
+    fetchParams.category = '';
+    if (categoryID > 0) fetchParams.category = categoryID;
+    fetchParams.sortBy = currentSelected.sortProperty;
+    fetchParams.order = currentSelected.order;
+
+    dispatch(fetchPizzas(fetchParams));
+
+
     // fetch(fetchHref)
     //   .then(res => res.json())
     //   .then(
@@ -79,7 +95,7 @@ export default function Home(props) {
   // const [categoryID, setCategoryID] = useState(0);
 
   // sort State
-  // const [curentSelected, setCurentSelected] = useState({
+  // const [currentSelected, setcurrentSelected] = useState({
   //   name: "популярности",
   //   sortProperty: "rating",
   //   order: "desc"
@@ -106,19 +122,19 @@ export default function Home(props) {
       const queryString = qs.stringify({
         limit: 30,
         page: currentPage,
-        sortBy: curentSelected.sortProperty,
-        order: curentSelected.order,
+        sortBy: currentSelected.sortProperty,
+        order: currentSelected.order,
         categoryID,
       })
 
       navigate(`?${queryString}`)
     }
-  }, [categoryID, curentSelected, searchValue, currentPage])
+  }, [categoryID, currentSelected, searchValue, currentPage])
 
   useEffect(() => {
     if (isFirstLoad.current !== true) fetchRequest()
     isFirstLoad.current = false
-  }, [categoryID, curentSelected, searchValue, currentPage])
+  }, [categoryID, currentSelected, searchValue, currentPage])
 
   // задачка, зробили фільтр який не буде прив'язаний до самих слів, а буде прив'язаний до символів 
   // Задача: 
@@ -129,7 +145,7 @@ export default function Home(props) {
     <>
       <div className="content__top">
         <Categories categoryID={categoryID} setCategoryID={onClickCategory} />
-        <Sort curentSelected={curentSelected} onClicktSelected={onClicktSelected} />
+        <Sort currentSelected={currentSelected} onClicktSelected={onClicktSelected} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {
