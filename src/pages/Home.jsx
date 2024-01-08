@@ -1,7 +1,7 @@
 import qs from "qs"
 
 import { useContext, useEffect, useRef, useState } from 'react';
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux';
 import { setCategoryID, setCurrentPage, setcurrentSelected, setFilters } from '../redux/slices/filterSlice';
 import { setItems, fetchPizzas } from '../redux/slices/pizzasSlice';
@@ -158,7 +158,7 @@ export default function Home(props) {
               status === 'loading'
                 ? [...new Array(3)].map((_, index) => <Skeleton key={index} />)
                 : items.map((pizza, index) => {
-                  return <PizzaBlock key={index} pizza={pizza} />
+                  return <Link key={index} to={`/pizza/${pizza.id}`}><PizzaBlock pizza={pizza} /></Link>
                 })
             }
           </div>)

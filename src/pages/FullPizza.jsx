@@ -1,20 +1,38 @@
-import { useEffect } from "react";
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom"
 import axios from 'axios'
+import PizzaBlock from "../components/PizzaBlock";
 
 export default function FullPizza() {
     const { pizzaId } = useParams();
-    // console.log(params.pizzaId);
+    const navigate = useNavigate();
+    const [pizza, setPizza] = useState()
+
 
     useEffect(() => {
+        async function fetchPizza() {
+            try {
+                const { data } = await axios.get("+https://6555464d63cafc694fe79d8e.mockapi.io/items/" + pizzaId);
+                console.log(pizza, data);
+                setPizza(data);
 
-    }, pizzaId)
+            } catch (error) {
+                // setPizza([error])
+                // alert(error)
+                navigate("/")
+            }
+        }
+
+        fetchPizza()
+    }, []);
+
+    if (!pizza) return "please wait"
 
     return (
-        <div>
-            <h2>{pizzaId}</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex numquam iusto corrupti quae optio accusamus, voluptate porro nisi culpa iste excepturi earum, at quasi tempore dicta amet hic ipsum repellat.</p>
-            <h4>250 $</h4>
-        </div>
+        <>
+            <img src={pizza.imageUrl} alt="pizza" />
+            <h2>{pizza.title}</h2>
+            <h4>{pizza.price} $</h4>
+        </>
     )
 }

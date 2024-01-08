@@ -4,15 +4,20 @@ import axios from "axios"
 export const fetchPizzas = createAsyncThunk(
     'pizzas/fetchPizzasStatus',
     async (fetchParams, thunkApi) => {
-        const { search, limit, page, category, sortBy, order } = fetchParams;
+        // const { search, limit, page, category, sortBy, order } = fetchParams;
         const fetchHref = new URL('https://6555464d63cafc694fe79d8e.mockapi.io/items');
 
-        fetchHref.searchParams.append('search', search);
-        fetchHref.searchParams.append('limit', limit);
-        fetchHref.searchParams.append('page', page)
-        fetchHref.searchParams.append('category', category)
-        fetchHref.searchParams.append('sortBy', sortBy);
-        fetchHref.searchParams.append('order', order);
+        // fetchHref.searchParams.append('search', search);
+        // fetchHref.searchParams.append('limit', limit);
+        // fetchHref.searchParams.append('page', page)
+        // fetchHref.searchParams.append('category', category)
+        // fetchHref.searchParams.append('sortBy', sortBy);
+        // fetchHref.searchParams.append('order', order);
+
+        Object.keys(fetchParams).forEach(key => {
+            // console.log(key, fetchParams[key]);
+            fetchHref.searchParams.append(key, fetchParams[key]);
+        });
 
         const { data } = await axios.get(fetchHref)
         // console.log(thunkApi);

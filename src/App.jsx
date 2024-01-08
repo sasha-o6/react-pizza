@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import { createContext, useState } from 'react';
+import { Children, createContext, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 
 import Header from './components/Header';
@@ -9,6 +9,7 @@ import FullPizza from './pages/FullPizza';
 import NotFound from './pages/NotFound'
 
 import './scss/app.scss';
+import MainLayouts from './layouts/MainLayout';
 // import pizzas from './assets/pizza.json'
 
 // export const SearchContext = createContext('');
@@ -23,20 +24,15 @@ export default function App() {
   // console.log(dispatch);
 
   return (
-    <div className="wrapper">
-      {/* <SearchContext.Provider value={{ searchValue, setSearchValue }}> */}
-      <Header />
-      <div className="content">
-        <div className="container">
-          <Routes>
-            <Route index element={<Home />}></Route>
-            <Route path="/cart" element={<Cart />}></Route>
-            <Route path="/pizza/:pizzaId" element={<FullPizza />}></Route>
-            <Route path="*" element={<NotFound />}></Route>
-          </Routes>
-        </div>
-      </div>
-      {/* </SearchContext.Provider> */}
-    </div>
+    /* <SearchContext.Provider value={{ searchValue, setSearchValue }}> */
+    <Routes>
+      <Route path="/" element={<MainLayouts />}>
+        <Route path="" element={<Home />}></Route>
+        <Route path="cart" element={<Cart />}></Route>
+        <Route path="pizza/:pizzaId" element={<FullPizza />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Route>
+    </Routes>
+    /* </SearchContext.Provider> */
   );
 }
