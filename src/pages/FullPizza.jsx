@@ -13,7 +13,7 @@ export default function FullPizza() {
         async function fetchPizza() {
             try {
                 const { data } = await axios.get("+https://6555464d63cafc694fe79d8e.mockapi.io/items/" + pizzaId);
-                console.log(pizza, data);
+                // console.log(pizza, data);
                 setPizza(data);
 
             } catch (error) {
